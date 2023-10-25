@@ -7,9 +7,10 @@
 # Arguments:
 # I is DBFIVE object "I"
 # tend = length of simulation window
-# heatduration is duration of heat stress in months
+# dreadgeduration & heatduration is duration of stress event in months
+# dredgelight is light level, probability of above saturation light, during dredging event
 # heatstress is temperature level, probability of optimal temperature, during heat stress
-# heatstart = month of heat stress start specified as 1-12 (Jan-Dec)
+# dreadgestart & heatstart = month of stress event start specified as 1-12 (Jan-Dec)
 #
 # Returns DBFIVE evid_t structure
 # 
