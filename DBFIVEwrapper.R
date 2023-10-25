@@ -27,8 +27,8 @@ createEvidScenario = function(I,tend,heatduration,heatstress,heatstart,
     evid_t[,I$nnames %in% 'Location_Type'] = list(c(0,0,0,0,0,0,0,1,0,0,0,0))
     evid_t[1,I$nnames%in%'Seed_Density']=list(c(0.75,0.25,0))
     light = c(0.6613,0.5536,0.5806,0.8667,0.4677,0.4667,0.8226,0.9032,0.9167,0.9677,0.95,0.9194)
-    temperature = c(0.06,0.04,0.1,0.2,0.97,1,1,1,1,0.84,0.37,0) # 2022
-    heat = rep(0, 12) # NEW!
+    temperature = c(0.06,0.04,0.1,0.2,0.97,1,1,1,1,0.84,0.37,0) 
+    heat = rep(0, 12) 
   } else {
     stop('This site is not supported; please choose 1\n')
   }
