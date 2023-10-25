@@ -42,7 +42,7 @@ createEvidScenario = function(I,tend,heatduration,heatstress,heatstart,
   # Write temperature pattern
   tempbaseline = matrix(c(temperature,1-temperature),nrow=12,ncol=2)
   # Write heat pattern
-  heatbaseline = matrix(c(heat,1-heat),nrow=12,ncol=2) # NEW!
+  heatbaseline = matrix(c(heat,1-heat),nrow=12,ncol=2) 
   
   if(heatduration>0) { # protect against if no heat stress
     writeind = heatstart:(heatstart+heatduration-1) + 24 # where to write heatstress
