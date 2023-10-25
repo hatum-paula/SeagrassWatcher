@@ -210,13 +210,11 @@ body <- dashboardBody(
                
                box(
                  title = "Scenario selected", status = 'primary', solidHeader = TRUE, width = 12,
-                 #h4(textOutput("dynamicText"), style = "margin-botton: 10px;")
                  uiOutput("dynamicText")
                ),
                # Image Box
                box(
                  title = "Scenario Image", status = 'primary', solidHeader = TRUE, width = 12,
-                 #h4(textOutput("dynamicText"), style = "margin-botton: 10px;"),
                  div(imageOutput("scenario_img")
                      ),
                  p(HTML("<b>Figure:</b> The model predicted-state probabilities for realised shoot density for <i>Zostera muelleri</i> located at Gladstone, Australia.
@@ -313,7 +311,6 @@ body <- dashboardBody(
       fluidRow(
         column(16,
           box(
-            #style = "min-height: 50px;",
             uiOutput("dynamic_title"),
             tags$div(style = "margin-top: 10px;"),
 
@@ -420,7 +417,7 @@ body <- dashboardBody(
       ),
       
       fluidRow(
-        column(8,  # Half the width of the row
+        column(8,  
                box(
                  title = "Plot-1",
                  uiOutput("dynamic_title1"),
@@ -442,7 +439,7 @@ body <- dashboardBody(
                  )
                )
         ),
-        column(8,  # Another half for the second plot
+        column(8,  
                box(
                  title = "Plot-2",
                  uiOutput("dynamic_title2"),
