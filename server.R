@@ -16,7 +16,7 @@ server <- function(input, output, session) {
         div( 
           style = "text-align:center; margin: 20px; padding: 20px; border: 2px solid #ccc; border-radius: 8px; background-color: white; width: 600px; height: 350px;", # Explicitly set width and height
           ## Landing page. -----------------------------------------------------
-          tags$img(src = "logo.png", alt = "SeagrassWatcher", height = "80px", width = "200px"),  # Replaced h1 with img
+          tags$img(src = "logo.png", alt = "SeagrassWatcher", height = "80px", width = "200px"),  
           h3("A Tool to Assess Seagrass Response to Disturbance"),
           p("This application has been developed to bridge the gap between scientific analysis and actionable conservation strategies. By using R Shiny and a probabilistic graphical model, we convert complex data into actionable insights, facilitating informed decision-making."),
           #tags$br(),
@@ -504,10 +504,10 @@ server <- function(input, output, session) {
     # Update select inputs, sliders, and numeric inputs
     updateSelectInput(session, "exheatstart", selected = heat_start)
     updateSliderInput(session, "exheatduration", value = heat_duration)
-    updateNumericInput(session, "exheatstress", value = heat_stress)  # Update this line
+    updateNumericInput(session, "exheatstress", value = heat_stress)  
     updateSelectInput(session, "exdredgestart", selected = dredge_start)
     updateSliderInput(session, "exdredgeduration", value = dredge_duration)
-    updateNumericInput(session, "exdredgelight", value = dredge_light)  # Assuming you also changed this to numericInput
+    updateNumericInput(session, "exdredgelight", value = dredge_light)  
   })
 
   # ****************************************************************************
@@ -639,10 +639,6 @@ server <- function(input, output, session) {
     # Initialize status variable
     status <- NULL
     
-    # Show the loading images
-    # shinyjs::show("loading3")
-    # shinyjs::show("loading4")
-    
     # Check if the scenario is selected and not "None"
     if (is.null(input$sspscenario1) || input$sspscenario1 == "" || is.na(input$sspscenario1)) {
       status <- "No scenario selected for Data 1."
@@ -667,10 +663,6 @@ server <- function(input, output, session) {
       })
     }
     
-    # Hide the loading images
-    # shinyjs::hide("loading3")
-    # shinyjs::hide("loading4")
-    
     return(status)
   })
   
@@ -678,10 +670,6 @@ server <- function(input, output, session) {
   loaded_data2 <- reactive({
     # Initialize status variable
     status <- NULL
-    
-    # Show the loading images
-    # shinyjs::show("loading5")
-    # shinyjs::show("loading6")
     
     # Check if the scenario is selected and not "None"
     if (is.null(input$sspscenario2) || input$sspscenario2 == "" || is.na(input$sspscenario2)) {
@@ -706,9 +694,6 @@ server <- function(input, output, session) {
         status <- paste("An error occurred while loading Data 2:", e$message)
       })
     }
-    # Hide the loading images
-    # shinyjs::hide("loading5")
-    # shinyjs::hide("loading6")
     
     return(status)
   })
