@@ -52,21 +52,19 @@ createEvidScenario = function(I,tend,heatduration,heatstress,heatstart,
       for(k in 1:length(writeind)) {
         x = min(tempbaseline[(writeind[k]+11)%%12+1,1],heatstress[1]) # Take min of baseline and heatstress
         evid_t[writeind[k],I$nnames %in% 'Temperature'] = list(c(x,1-x))
-        #evid_t[writeind[k],I$nnames %in% 'Temperature'] = list(c(1-x,x))
       }
       for(k in 1:length(writeind)) { # New
-        x = min(tempbaseline[(writeind[k]+11)%%12+1,1],heatstress[1]) # Take min of baseline and heatstress
-        evid_t[writeind[k],I$nnames %in% 'Heat_Stress'] =  list(c(1-x,x))# Effect and No Effect
-        #evid_t[writeind[k],I$nnames %in% 'Heat_Stress'] =  list(c(x,1-x))
+        x = min(tempbaseline[(writeind[k]+11)%%12+1,1],heatstress[1]) 
+        evid_t[writeind[k],I$nnames %in% 'Heat_Stress'] =  list(c(1-x,x)) 
       }
     } else { # heatstress is a vector for Jan to Dec
       readind = (writeind-1) %% 12 + 1 # because sim always starts in Jan, convert writeind to months of yr
       for(k in 1:length(writeind)) {
-        x = min(tempbaseline[(writeind[k]+11)%%12+1,1],heatstress[readind[k]]) # Take min of baseline and heatstress
+        x = min(tempbaseline[(writeind[k]+11)%%12+1,1],heatstress[readind[k]]) 
         evid_t[writeind[k],I$nnames %in% 'Temperature'] = list(c(x,1-x))
       }
       for(k in 1:length(writeind)) { # New
-        x = min(tempbaseline[(writeind[k]+11)%%12+1,1],heatstress[readind[k]]) # Take min of baseline and heat temperature
+        x = min(tempbaseline[(writeind[k]+11)%%12+1,1],heatstress[readind[k]]) 
         evid_t[writeind[k],I$nnames %in% 'Heat_Stress'] = list(c(1-x,x))
       } 
     }
