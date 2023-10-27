@@ -39,6 +39,7 @@ body <- dashboardBody(
           width = 5, style = "height: 100px;",
           
           ## Seagrass DBN model. -----------------------------------------------
+          
           box(
             selectInput("image_choice", "Choose an image to display:", 
                         choices = c("Overall DBN model" = "DBN.png",
@@ -51,7 +52,8 @@ body <- dashboardBody(
           tags$br(),
           
           ## Legend box. -------------------------------------------------------
-          box(
+         
+           box(
             style = "height: 307px;",
             title = "Seagrass DBN Model",
             tags$div(
@@ -81,7 +83,8 @@ body <- dashboardBody(
         ),
           
         ## Image display. ------------------------------------------------------
-        box( 
+       
+         box( 
           #uiOutput("images"),
           div(style = "height: 500px;", uiOutput("images")),
           width = 11
@@ -94,6 +97,7 @@ body <- dashboardBody(
         ),
         
         ## Table display. ------------------------------------------------------
+        
         box(
           DTOutput("table"),
           width = 16
@@ -107,6 +111,7 @@ body <- dashboardBody(
     # **************************************************************************
     
     ## Gladstone map. ----------------------------------------------------------
+    
     tabItem(
       tabName = "zostera",
       fluidRow(
@@ -120,6 +125,7 @@ body <- dashboardBody(
       ),
       
       ## Text. -----------------------------------------------------------------
+      
       fluidRow(
         column(16,
           uiOutput("dynamicContent"),
@@ -150,6 +156,7 @@ body <- dashboardBody(
       fluidRow(
         
         ## Scenarios and Events. -----------------------------------------------
+        
         column(6,
                
                # Scenario Selection
@@ -206,6 +213,7 @@ body <- dashboardBody(
         ),
         
         ## Image and Resilience Metrics Table. ---------------------------------
+        
         column(10,
                
                box(
@@ -234,12 +242,25 @@ body <- dashboardBody(
                  <ol>")
                )
         )
-      )
+      ),
+      
+      tags$script(HTML("
+      $(document).ready(function() {
+      $('#exdredgestart').prop('disabled', true);
+      $('#exdredgeduration').slider('disable');
+      $('#exdredgelight').prop('disabled', true);
+      $('#exheatstart').prop('disabled', true);
+      $('#exheatduration').slider('disable');
+      $('#exheatstress').prop('disabled', true);
+      });
+      "))
+      
     ),
     
     # **************************************************************************
     # 5) Fifth tab content. ---------------------------------------------------
     # **************************************************************************
+    
     tabItem(
       tabName = "events",
       
@@ -250,6 +271,7 @@ body <- dashboardBody(
       h1(style = "color: #333333;", "Short-Term Impact: Light & Heat Disturbance Event"),
       
       # Heat and Light Events. -------------------------------------------------
+      
       fluidRow(
         column(8,
                box(title = "Light Event",
@@ -276,6 +298,7 @@ body <- dashboardBody(
       ),
       
       ## Variable Selection and Resilience Metrics. ----------------------------
+      
       fluidRow(
         column(8,
                box(title = "Variable Selection",
@@ -308,6 +331,7 @@ body <- dashboardBody(
         ),
       
       ## Graphs and Title. -----------------------------------------------------
+      
       fluidRow(
         column(16,
           box(
@@ -348,43 +372,41 @@ body <- dashboardBody(
     # **************************************************************************
     # 6) Sixth tab content. ----------------------------------------------------
     # **************************************************************************
+    
     tabItem(
       tabName = "scenarios",
       
       shinyjs::useShinyjs(),
       
-      # Adding empty space before the title
       tags$br(),
       
-      # Adding title above the table
       h1(style = "color: #333333;", "Long-Term Impact: Projected Temperature Effect on Seagrass"),
       
-      ## Main Variable and Decade. ---------------------------------------------
       fluidRow(
         column(6,
                box(
                  title = "Variable",
-                   selectInput("main_variable", "Select Variable:",
-                               choices = c("None selected" = "", "Sediment_Quality", "Accumulated_Light", "Accumulated_Burial",
-                                           "Salinity", "Temperature", "Physiological_Status_of_Plants",
-                                           "Immigrant_Seed_Density", "Immigrant_Seed_Quality", "Baseline_Shoot_Density",
-                                           "Above_to_Below_Ground_Biomass_Ratio", "Ability_to_Resist_Hazard",
-                                           "Loss_in_Shoot_Density", "Seed_Density", "Seed_Quality",
-                                           "Recruitment_Rate_from_Seeds", "Immigrant_Vegetative_Fragments",
-                                           "Lateral_Growth_from_Existing_Individuals", "Overall_Lateral_Growth",
-                                           "Rate_of_Recovery_in_Shoot_Density", "Net_Change_Shoot_Density",
-                                           "Realised_Shoot_Density", "Ability_to_Recover", "Heat_Stress"),
-                               multiple = TRUE, selected = "Realised_Shoot_Density")
-                 )
-               ),
+                 selectInput("main_variable", "Select Variable:",
+                             choices = c("None selected" = "", "Sediment_Quality", "Accumulated_Light", "Accumulated_Burial",
+                                         "Salinity", "Temperature", "Physiological_Status_of_Plants",
+                                         "Immigrant_Seed_Density", "Immigrant_Seed_Quality", "Baseline_Shoot_Density",
+                                         "Above_to_Below_Ground_Biomass_Ratio", "Ability_to_Resist_Hazard",
+                                         "Loss_in_Shoot_Density", "Seed_Density", "Seed_Quality",
+                                         "Recruitment_Rate_from_Seeds", "Immigrant_Vegetative_Fragments",
+                                         "Lateral_Growth_from_Existing_Individuals", "Overall_Lateral_Growth",
+                                         "Rate_of_Recovery_in_Shoot_Density", "Net_Change_Shoot_Density",
+                                         "Realised_Shoot_Density", "Ability_to_Recover", "Heat_Stress"),
+                             multiple = TRUE, selected = "Realised_Shoot_Density")
+               )
+        ),
         column(5,
                box(
                  title = "Decade",
                  selectInput("main_decade", "Select Decade:",
                              choices = c("None selected" = "", "2030s", "2040s", "2050s", "2060s", "2070s", "2080s", "2090s"),
                              multiple = FALSE, selected = "2030s")
-                 )
-               ),
+               )
+        ),
         column(5,
                box(
                  title = "Index",
@@ -395,7 +417,6 @@ body <- dashboardBody(
         )
       ),
       
-      ## Plot Output --------------------------------------------------------------
       fluidRow(
         column(8,
                box(
@@ -405,7 +426,6 @@ body <- dashboardBody(
                              multiple = FALSE, selected = NULL)
                )
         ),
-        
         column(8,
                box(
                  title = "Scenario-2",
@@ -434,9 +454,7 @@ body <- dashboardBody(
                      )
                    )
                  ),
-                 tags$div(style = "text-align:center;",
-                          plotOutput("plot1")
-                 )
+                 uiOutput("dynamic_plot1")
                )
         ),
         column(8,  
@@ -456,7 +474,7 @@ body <- dashboardBody(
                      )
                    )
                  ),
-                 plotOutput("plot2")
+                 uiOutput("dynamic_plot2")
                )
         )
       ),
@@ -466,18 +484,18 @@ body <- dashboardBody(
                box(
                  title = "High Shoot Density Ratio",
                  plotOutput("highratio_plot")
-                 )
-               ),
+               )
+        ),
         column(16,
                box(
                  title = "Zero Shoot Density Ratio",
                  plotOutput("zeroratio_plot")
-                 )
                )
         )
-
+      )
     )
     
   )
 )
+
 
