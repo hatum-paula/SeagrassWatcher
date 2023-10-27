@@ -34,31 +34,35 @@ customCSS <- "
 }
 /* Custom CSS to change font size for all buttons */
 button {
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
 /* Custom CSS to change font size for all selectize inputs */
 .selectize-input, .selectize-dropdown {
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
 /* Custom CSS to change font size for all Shiny sliders */
 .js-irs-0 .irs-single, .js-irs-0 .irs-min, .js-irs-0 .irs-max {
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
 /* Custom CSS to change font size for all labels */
 label {
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
 /* Custom CSS to change font size for all paragraphs */
 p {
-  font-size: 16px !important;
+  font-size: 14px !important;
+}
+/* Custom CSS to change font size for a specific paragraph */
+#special-paragraph {
+  font-size: 18px !important;
 }
 /* Custom CSS to change font size for all bullet points */
 ul li {
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
 /* Custom CSS to increase font size for Shiny tables */
     .shiny-table {
-      font-size: 16px !important;
+      font-size: 14px !important;
 }
 "
 
