@@ -16,12 +16,15 @@ server <- function(input, output, session) {
         div( 
           style = "text-align:center; margin: 20px; padding: 20px; border: 2px solid #ccc; border-radius: 8px; background-color: white; width: 600px; height: 350px;", # Explicitly set width and height
           ## Landing page. -----------------------------------------------------
+          
           tags$img(src = "logo.png", alt = "SeagrassWatcher", height = "80px", width = "200px"),  
           h3("A Tool to Assess Seagrass Response to Disturbance"),
-          p("This application has been developed to bridge the gap between scientific analysis and actionable conservation strategies. By using R Shiny and a probabilistic graphical model, we convert complex data into actionable insights, facilitating informed decision-making."),
+          #p("This application has been developed to bridge the gap between scientific analysis and actionable conservation strategies. By using R Shiny and a probabilistic graphical model, we convert complex data into actionable insights, facilitating informed decision-making."),
+          tags$p(id = "special-paragraph", "This application has been developed to bridge the gap between scientific analysis and actionable conservation strategies. By using R Shiny and a probabilistic graphical model, we convert complex data into actionable insights, facilitating informed decision-making."),
           #tags$br(),
           
           ## Seagrass information. ---------------------------------------------
+          
           tags$button(id = "go_to_seagrass", class = "ui button", 
                       style = "width: 150px; height: 50px;", "Seagrass"),
           tags$div(
@@ -60,6 +63,7 @@ server <- function(input, output, session) {
             )
           ),
           ## DBN model information. --------------------------------------------
+          
           tags$button(id = "go_to_dbn", class = "ui button",
                       style = "width: 150px; height: 50px;", "DBN model"),
           tags$div(
@@ -120,6 +124,7 @@ server <- function(input, output, session) {
   # ****************************************************************************
   
   ## Overall model structure. --------------------------------------------------
+  
   output$images <- renderUI({
     selected_image <- input$image_choice
     tags$img(src = selected_image, alt = "Selected Image", 
@@ -128,6 +133,7 @@ server <- function(input, output, session) {
   })
   
   ## Nodes Description.---------------------------------------------------------
+  
   output$table <- renderDT({
     datatable(nodes, options = list(pageLength = 5))
   })
@@ -137,6 +143,7 @@ server <- function(input, output, session) {
   # ****************************************************************************
   
   ## Map Rendering. ------------------------------------------------------------
+  
   output$mymap <- renderLeaflet({
     leaflet() %>% 
       addTiles(urlTemplate = "http://tile.stamen.com/watercolor/{z}/{x}/{y}.jpg") %>% 
@@ -155,6 +162,7 @@ server <- function(input, output, session) {
   })
   
   ## Handle page navigation. ---------------------------------------------------
+  
   currentPage <- reactiveVal(1)
 
   observeEvent(input$nextpage, {
@@ -170,6 +178,7 @@ server <- function(input, output, session) {
   })
 
   ## Dynamic Content. ----------------------------------------------------------
+  
   output$dynamicContent <- renderUI({
     if (currentPage() == 1) {
       firstPageContent()  # Function call to render first page content
@@ -191,8 +200,8 @@ server <- function(input, output, session) {
       h2("App Functionality"),
       # App functionality description
       p("This app offers two distinct tabs for exploring seagrass resilience.
-      Heat Stress & Light tab allows you to apply scenarios varying light and heat stress factors to gauge resilience metrics.
-      Projections tab is designed for applying SSP (Shared Socioeconomic Pathways) scenarios." ),
+      The 'Heat Stress & Light' tab enables you to conduct short-term analyses by varying light and heat stress factors to assess resilience metrics..
+      On the other hand, the 'SSP-Scenario' tab is specifically designed to facilitate long-term analyses using Shared Socioeconomic Pathways (SSP) scenarios." ),
       
       h3("Tab: Preset Cases"),
       p("Explore the resilience of seagrass through 10 preset scenarios. 
@@ -204,7 +213,7 @@ server <- function(input, output, session) {
           tags$li("Intensity of light or heat stress")
         )
         ),
-      p("For instance, some scenarios commence light disturbances in January, while others initiate heat stress events in July. 
+      p("For instance, some scenarios commence light disturbances in January, while others it initiates in July. 
         The intensity and duration also differ, thus allowing for a broad range of outcomes."),
       p("Quantifying Resilience:",
         "To evaluate the resilience of seagrass, we concentrated on three pivotal ecological interactions:",
@@ -218,12 +227,12 @@ server <- function(input, output, session) {
       ),
       p("Model Output Insights:",
         tags$ul(
-          tags$li(tags$em("Simulations: "), "Each scenario undergoes a simulation to analyze system response and state probability trajectories over time."),
-          tags$li(tags$em("Population States: "), "Defined as a percentage of a reference site, these indicate realised shoot density (biomass) in terms of grams of dry matter per square meter. 
+          tags$li(tags$strong("Simulations: "), "Each scenario undergoes a simulation to analyze system response and state probability trajectories over time."),
+          tags$li(tags$strong("Population States: "), "Defined as a percentage of a reference site, these indicate realised shoot density (biomass) in terms of grams of dry matter per square meter. 
                           Realised shoot density (biomass) can be high, moderate, low, or zero."),
-          tags$li(tags$em("Cummulative Response: "), "The biomass at a given time is influenced by factors such as loss and recovery rates, baseline biomass nodes, and environmental changes."),
-          tags$li(tags$em("Adaptive Mechanisms: "), "Despite environmental hazards like heat stress or decrease in water quality, plants mitigate loss through their physiological ability to resist stress."),
-          tags$li(tags$em("Long-Term Effects: "), "Over time, environmental stresses may alter physiological status and other recovery factors like lateral growth and seed recruitment.")
+          tags$li(tags$strong("Cummulative Response: "), "The biomass at a given time is influenced by factors such as loss and recovery rates, baseline biomass nodes, and environmental changes."),
+          tags$li(tags$strong("Adaptive Mechanisms: "), "Despite environmental hazards like heat stress or decrease in water quality, plants mitigate loss through their physiological ability to resist stress."),
+          tags$li(tags$strong("Long-Term Effects: "), "Over time, environmental stresses may alter physiological status and other recovery factors like lateral growth and seed recruitment.")
         )
       )
                           
@@ -330,6 +339,7 @@ server <- function(input, output, session) {
   })
   
   ## DBN Plot. -----------------------------------------------------------------
+  
   output$scenario_img <- renderImage({
     req(input$exscenario)
     
@@ -347,6 +357,7 @@ server <- function(input, output, session) {
   }, deleteFile = FALSE)
   
   ## Resilience table. ---------------------------------------------------------
+  
   output$resilience_table <- renderTable({
     req(input$exscenario)
     scenario_data <- switch(input$exscenario,
@@ -366,6 +377,7 @@ server <- function(input, output, session) {
   })
   
   ## Events description. -------------------------------------------------------
+  
   output$dynamicText <- renderUI({
     scenario <- input$exscenario
     scenario_text <- NULL
@@ -425,6 +437,7 @@ server <- function(input, output, session) {
   })
   
   ## Update slider inputs. -----------------------------------------------------
+  
   observe({
     req(input$exscenario)
     scenario <- input$exscenario
@@ -507,7 +520,11 @@ server <- function(input, output, session) {
     updateNumericInput(session, "exheatstress", value = heat_stress)  
     updateSelectInput(session, "exdredgestart", selected = dredge_start)
     updateSliderInput(session, "exdredgeduration", value = dredge_duration)
-    updateNumericInput(session, "exdredgelight", value = dredge_light)  
+    updateNumericInput(session, "exdredgelight", value = dredge_light) 
+    
+    # Disable sliders
+    shinyjs::disable("exdredgeduration")
+    shinyjs::disable("exheatduration")
   })
 
   # ****************************************************************************
@@ -515,6 +532,7 @@ server <- function(input, output, session) {
   # ****************************************************************************
   
   ## Selected variables limited to 4. ------------------------------------------
+  
   observe({
     if (length(input$variable) > 4) {
       updateSelectInput(session, "variable", selected = input$variable[1:4])
@@ -523,6 +541,7 @@ server <- function(input, output, session) {
   })
   
   ## Calculate height. ---------------------------------------------------------
+  
   output$dynamic_plot <- renderUI({
     num_vars <- length(input$variable)
 
@@ -535,12 +554,21 @@ server <- function(input, output, session) {
       calculated_height <- 300 * 1
     }
 
-    plotOutput("plot", height = calculated_height)
+    # Create a div with a minimum height to hold the plot
+    div(
+      style = paste0("min-height: ", calculated_height, "px;"),
+      plotOutput("plot", height = calculated_height)
+    )
+    
   })
   
   ## Run scenario and estimate resilience. -------------------------------------
 
   observeEvent(input$submit, {
+    
+    # Hide the previous plot and table
+    shinyjs::hide("plot")
+    shinyjs::hide("results_table") 
     
     shinyjs::show("loading1")  # Show the loading imag
     shinyjs::show("loading2")
@@ -572,6 +600,7 @@ server <- function(input, output, session) {
     P$t <- x - d
 
     ## Plot posterior probabilities for node name. -----------------------------
+    
     output$plot <- renderPlot({
 
       # Get selected variables
@@ -599,6 +628,9 @@ server <- function(input, output, session) {
          
         }
       }
+      
+      # Show the plot after it's generated
+      shinyjs::show("plot")
 
     })
     
@@ -610,6 +642,7 @@ server <- function(input, output, session) {
     t = max(sort(unique(c(t_heat, t_dredge))))
     
     ## Create and render output table. -----------------------------------------
+    
     output$results_table <- renderTable({
       results <- data.frame(
         Resistance = outputs$resistance,
@@ -619,9 +652,13 @@ server <- function(input, output, session) {
       results
     })
     
+    # Show the table after it's generated
+    shinyjs::show("results_table")
+    
   })
   
   ## Add a title. --------------------------------------------------------------
+  
   output$dynamic_title <- renderText({
     selected_vars <- paste(input$variable, collapse = ", ")
     paste0("<strong style='font-size: 16px;'>The model predicted-state probabilities for <span style='background-color: lightgray; padding: 4px; color: black;'>", 
@@ -634,6 +671,7 @@ server <- function(input, output, session) {
   # ****************************************************************************
   
   ## Load data. ----------------------------------------------------------------
+  
   # For loaded_data1 (Assuming sspscenario1 is the input from Shiny UI)
   loaded_data1 <- reactive({
     # Initialize status variable
@@ -698,6 +736,15 @@ server <- function(input, output, session) {
     return(status)
   })
   
+  ## Selected variables limited to 2. ------------------------------------------
+  
+  observe({
+    if (length(input$main_variable) > 2) {
+      updateSelectInput(session, "main_variable", selected = input$main_variable[1:2])
+      showNotification("You can select up to 2 variables only.", type = "warning")
+    }
+  })
+  
   # Update Plot Data 1 based on selected_indices
   plot_data1 <- reactive({
     ssp1_plots <- list()
@@ -744,6 +791,28 @@ server <- function(input, output, session) {
     return(ssp2_plots)
   })
   
+  ## Calculate height. ---------------------------------------------------------
+  
+  # Dynamic UI for Plot 1
+  output$dynamic_plot1 <- renderUI({
+    num_vars <- length(input$main_variable)
+    
+    # Assuming each plot needs 300 pixels
+    calculated_height <- 300 * num_vars
+    
+    plotOutput("plot1", height = calculated_height)
+  })
+  
+  # Dynamic UI for Plot 2
+  output$dynamic_plot2 <- renderUI({
+    num_vars <- length(input$main_variable)
+    
+    # Assuming each plot needs 300 pixels
+    calculated_height <- 300 * num_vars
+    
+    plotOutput("plot2", height = calculated_height)
+  })
+  
   ## Graphs. -------------------------------------------------------------------
 
   output$plot1 <- renderPlot({
@@ -751,7 +820,7 @@ server <- function(input, output, session) {
       grid.arrange(grobs = plot_data1(), ncol = 1)
     }
   })
-
+  
   output$plot2 <- renderPlot({
     if (!is.null(plot_data2()) && length(plot_data2()) > 0) {
       grid.arrange(grobs = plot_data2(), ncol = 1)
@@ -759,6 +828,7 @@ server <- function(input, output, session) {
   })
   
   ## Add a title. --------------------------------------------------------------
+  
   output$dynamic_title1 <- renderText({
     selected_vars1 <- paste(input$main_variable, collapse = ", ")
     paste0("<strong style='font-size: 16px;'>The model predicted-state probabilities for <span style='background-color: lightgray; padding: 4px; color: black;'>",
@@ -772,6 +842,7 @@ server <- function(input, output, session) {
   })
   
   ## Resilience Plot. ----------------------------------------------------------
+  
   # Reactive function to get filtered data
   highratio_data <- reactive({
     # Ensure the required inputs are available
@@ -891,3 +962,4 @@ server <- function(input, output, session) {
   })
   
 }
+
